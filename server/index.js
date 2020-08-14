@@ -1,8 +1,6 @@
+require('dotenv').config();
 const express = require('express');
-const {
-  getAllFile,
-  listFiles
-} = require('./connectGD');
+const { getAllFile, listFiles } = require('./connectGD');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -12,9 +10,11 @@ app.listen(PORT, () => {
 });
 app.get('/', async (req, res) => {
   const data = await getAllFile();
-  console.log('data in server', data)
-  res.send(data);
+  console.log('data in server', data);
+  // res.send(data);
+  res.send('hello shindo');
 });
+
 app.get('/ping', (req, res) => {
   res.send('Ping is good');
 });

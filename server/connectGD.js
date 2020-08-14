@@ -1,8 +1,6 @@
 const fs = require('fs');
 const readline = require('readline');
-const {
-  google
-} = require('googleapis');
+const { google } = require('googleapis');
 const async = require('async');
 
 // If modifying these scopes, delete token.json.
@@ -20,7 +18,9 @@ const TOKEN_PATH = 'token.json';
  */
 function authorize() {
   const client_secret = process.env.CLIENT_SECRET || 'gzXzvbiIAFSf1iSBV97_-HW2';
-  const client_id = process.env.CLIENT_ID || '595784808090-k9djc0ii31ujd9o54igmrs48n936mn65.apps.googleusercontent.com';
+  const client_id =
+    process.env.CLIENT_ID ||
+    '595784808090-k9djc0ii31ujd9o54igmrs48n936mn65.apps.googleusercontent.com';
   const redirect_uris = process.env.REDIRECT_URIS || 'http://localhost:3000';
 
   const oAuth2Client = new google.auth.OAuth2(
@@ -30,8 +30,12 @@ function authorize() {
   );
 
   // Check if we have previously stored a token.
-  const token = fs.readFileSync('./token.json', {
-    encoding: 'utf-8',
+  const token = JSON.stringify({
+    access_token: process.env.ACCESS_TOKEN,
+    refresh_token: process.env.REFRESH_TOKEN,
+    scope: process.env.SCOPE,
+    token_type: process.env.TOKEN_TYPE,
+    expiry_date: process.env.EXPIRY_DATE,
   });
   if (!token) return getAccessToken(oAuth2Client);
 
@@ -110,7 +114,8 @@ function getFileByName(auth, fileName) {
   // Using the NPM module 'async'
   async.doWhilst(
     function () {
-      drive.files.list({
+      drive.files.list(
+        {
           q: "mimeType != 'application/vnd.google-apps.folder'",
           fields: 'nextPageToken, files(id, name, webContentLink, webViewLink)',
           spaces: 'drive',
@@ -269,7 +274,6 @@ function getFileByName(auth, fileName) {
 //     throw new Error(error);
 //   }
 // };
-
 
 // module.exports.getAllFile = getAllFile;
 // module.exports.listFiles = listFiles;
