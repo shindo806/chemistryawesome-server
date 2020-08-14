@@ -13,7 +13,7 @@ app.listen(PORT, () => {
 app.get('/', async (req, res) => {
   const data = await getAllFile();
   console.log('data in server', data)
-  res.send('Homepage');
+  res.send(data);
 });
 app.get('/ping', (req, res) => {
   res.send('Ping is good');
