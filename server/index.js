@@ -11,8 +11,8 @@ app.listen(PORT, () => {
 app.get('/', async (req, res) => {
   const data = await getAllFile();
   console.log('data in server', data);
-  // res.send(data);
-  res.send('hello shindo');
+  res.send(data);
+  // res.send('hello shindo');
 });
 
 app.get('/ping', (req, res) => {
