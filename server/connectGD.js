@@ -30,12 +30,21 @@ function authorize() {
   );
 
   // Check if we have previously stored a token.
+  // const token = JSON.stringify({
+  //   access_token: process.env.ACCESS_TOKEN,
+  //   refresh_token: process.env.REFRESH_TOKEN,
+  //   scope: process.env.SCOPE,
+  //   token_type: process.env.TOKEN_TYPE,
+  //   expiry_date: process.env.EXPIRY_DATE,
+  // });
   const token = JSON.stringify({
-    access_token: process.env.ACCESS_TOKEN,
-    refresh_token: process.env.REFRESH_TOKEN,
-    scope: process.env.SCOPE,
-    token_type: process.env.TOKEN_TYPE,
-    expiry_date: process.env.EXPIRY_DATE,
+    access_token:
+      'ya29.a0AfH6SMDuPKMABRuGJb6CnOUNX1NSqZWslSk6HK4uBOpnpwg2jrW8sfYnfNeraEWEjWM7oJRDyyVXSC21z6bW2dK1eMciMmLNvwuf7U3H8rztLyXDadVhXLCh4xdTEqY_O-qT9tlGypwQh2XpQrW3WYdXk8NrqSjKrsc',
+    refresh_token:
+      '1//0gGBb3HcAi0pFCgYIARAAGBASNwF-L9IrehsXmovy2rN1w9KomYHw_TxAWp0m0TzBYxDDyt8gWBraSGb2HT5l4v-Zj6vuWbRm0fE',
+    scope: 'https://www.googleapis.com/auth/drive.metadata.readonly',
+    token_type: 'Bearer',
+    expiry_date: 1597401550756,
   });
   if (!token) return getAccessToken(oAuth2Client);
 
