@@ -23,7 +23,7 @@ app.get('/ping', (req, res) => {
 });
 
 // End-Point for Chem10
-app.get('/:chapter', async (req, res) => {
-  const data = await getChapterFiles(req.params.chapter);
+app.get('/:semester', async (req, res) => {
+  const data = await getChapterFiles(req.params.semester);
   res.send(data);
 });

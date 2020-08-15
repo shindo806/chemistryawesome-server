@@ -78,18 +78,48 @@ const drive = google.drive({
 //   };
 // };
 
-const getChapterFiles = async (chapterName) => {
-  let chapterId = await drive.files
+const getChapterFiles = async (semester) => {
+  let semesterId = await drive.files
     .list({
       q: "mimeType = 'application/vnd.google-apps.folder'",
-      q: `name = '${chapterName}'`
+      q: `name = '${semester}'`
     })
-    .then((data) => data.data.files[0].id);
-  let allFilesInChapter = await drive.files.list({
-    q: `parents in "${chapterId}"`
-  }).then(data => (data.data))
+    .then(data => {
+      if (data.data.files.length !== 0) {
+        return (data.data.files[0].id)
+      } else {
+        return {
+          message: 'File not found'
+        }
+      }
+    });
+  if (semesterId.message) return {
+    message: 'File not found'
+  }
 
-  return allFilesInChapter
+  let chapterId = await drive.files.list({
+    q: `parents in '${semesterId}'`
+  }).then(data => {
+    if (data.data.files.length !== 0) {
+      return (data.data.files[0].id)
+    } else {
+      return {
+        message: 'File not found'
+      }
+    }
+  })
+  if (chapterId.message) return {
+    message: 'File not found'
+  }
+
+  let allFilesInChapter = await drive.files.list({
+    q: `parents in "${chapterId}"`,
+    fields: 'files(id, name, webContentLink, webViewLink)'
+  }).then(data => (data.data.files))
+
+  return {
+    allFilesInChapter
+  };
 };
 
 module.exports.getChapterFiles = getChapterFiles;
