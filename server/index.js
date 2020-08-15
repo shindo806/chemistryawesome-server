@@ -1,13 +1,10 @@
 require('dotenv').config();
 const express = require('express');
-const {
-  getAllFile
-} = require('./connectGD');
-const {
-  getChapterFiles,
-} = require('./models/chapter');
+const cors = require('cors');
+const { getAllFile } = require('./connectGD');
+const { getChapterFiles } = require('./models/chapter');
 const app = express();
-
+app.use(cors());
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
