@@ -20,15 +20,15 @@ const getChapterFilesChem10 = async () => {
     })
     .then((data) => data.data.files[0].id);
   // Get ID cua thu muc HK1, HK2
-  const semasterFolderID = await drive.files
-    .list({
-      q: "mimeType = 'application/vnd.google-apps.folder'",
-      q: `parents in '${folderID}'`,
-      q: "name = 'Chapter'",
-    })
-    .then((data) => data.data.files[0].id);
+  // const semasterFolderID = await drive.files
+  //   .list({
+  //     q: "mimeType = 'application/vnd.google-apps.folder'",
+  //     q: `parents in '${folderID}'`,
+  //     q: "name = 'Chapter'",
+  //   })
+  //   .then((data) => data.data.files[0].id);
 
-  console.log(semasterFolderID);
+  console.log(folderID);
 };
 
 module.exports.getAllChem10Files = getAllChem10Files;

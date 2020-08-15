@@ -4,7 +4,7 @@ const {
   getAllFile
 } = require('./connectGD');
 const {
-  getChapterFiles
+  getChapterFiles,
 } = require('./models/chapter');
 const app = express();
 
@@ -23,7 +23,7 @@ app.get('/ping', (req, res) => {
 });
 
 // End-Point for Chem10
-app.get('/chem10', async (req, res) => {
-  const data = await getChapterFiles('Chem10')
+app.get('/:chapter', async (req, res) => {
+  const data = await getChapterFiles(req.params.chapter);
   res.send(data);
 });
