@@ -116,7 +116,7 @@ const getChapterFiles = async (semester) => {
     q: `parents in "${chapterId}"`,
     fields: 'files(id, name, webContentLink, webViewLink)'
   }).then(data => (data.data.files))
-
+  allFilesInChapter = allFilesInChapter.reverse();
   return {
     allFilesInChapter
   };
