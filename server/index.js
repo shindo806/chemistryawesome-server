@@ -7,8 +7,13 @@ const {
 const {
   getChapterFiles
 } = require('./models/chemgrade');
-const getSemesterFiles = require('./models/semester');
+
+
 const getChemGradeFiles = require('./models/chemgrade');
+const {
+  getAllSemesterFiles,
+  getSemesterFiles
+} = require('./models/semester');
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 4000;
@@ -21,25 +26,39 @@ app.get('/', async (req, res) => {
   res.send(data);
 });
 
-app.get('/ping', (req, res) => {
-  res.send('Ping is good');
-});
+// app.get('/ping', (req, res) => {
+//   res.send('Ping is good');
+// });
 
-// End-Point for each chemgrade: 10 - 11 - 12
-app.get('/:chemgrade', async (req, res) => {
-  const data = await getChemGradeFiles(req.params.chemgrade);
-  console.log(data)
-  res.send({
-    data: data.allFilesInChapter
-  });
-});
+// // End-Point for each chemgrade: 10 - 11 - 12
+// app.get('/:chemgrade', async (req, res) => {
+//   console.log('chemgrade')
+//   const data = await getChemGradeFiles(req.params.chemgrade);
 
-// End-Point for each 
-app.get('/:chemgrade/:semester', async (req, res) => {
-  const query = req.params;
-  const data = await getSemesterFiles(query);
+//   res.send({
+//     data: data.allFilesInChapter
+//   });
+// });
 
-  res.send({
-    data: data.allFilesInSemester
-  })
-})
+// // End-Point for each 
+// app.get('/:chemgrade/:semester', async (req, res) => {
+//   const query = req.params;
+//   const data = await getSemesterFiles(query);
+
+//   res.send({
+//     data: data.allFilesInSemester
+//   })
+// })
+
+// // End-Point for the whole semester
+// app.get('/semester/:chemgrade', async (req, res) => {
+//   const query = req.params;
+//   console.log('semester')
+//   console.log(query)
+//   const data = await getAllSemesterFiles(query)
+//   res.send({
+//     status: '200'
+//   })
+// })
+
+app.use('/', require('./routes'));
